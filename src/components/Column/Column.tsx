@@ -1,20 +1,21 @@
-import Task from "components/Task/Task";
+import Card from "components/Card/Card";
 import React from "react";
+import { sortOrder } from "utils/sorts";
 import "./Column.scss";
-type Props = {};
+type Props = {
+    column: any;
+};
 
-const Column = (props: Props) => {
+const Column = ({ column }: Props) => {
+    const { cards } = column;
+    const sortCard = sortOrder(cards, column.cardOrder, "id");
     return (
         <div className="trello-column">
-            <div className="trello-column__header">Dieu can lam</div>
+            <div className="trello-column__header">{column.title}</div>
             <ul className="trello-column__list">
-                <li className="trello-column__item">
-                    <img
-                        src="https://i.pinimg.com/originals/4e/ee/ce/4eeecedfaae829807a1a42adf30d01b7.jpg"
-                        alt="hinh"
-                    />
-                </li>
-                <Task />
+                {sortCard.map((card: any, idx: number) => (
+                    <Card card={card} key={idx} />
+                ))}
             </ul>
             <div className="trello-column__header">Dieu can lam</div>
         </div>
