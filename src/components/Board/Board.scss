@@ -1,0 +1,19 @@
+@import "../../setting.scss";
+.trello {
+    &-columns {
+        display: flex;
+        overflow-x: auto;
+        margin: 10px 10px 10px;
+
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
+        }
+        &::-webkit-scrollbar:horizontal {
+            height: 15px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.24);
+            border-radius: 40px;
+        }
+    }
+}

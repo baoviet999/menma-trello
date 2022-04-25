@@ -1,0 +1,49 @@
+@import "../../setting.scss";
+.trello {
+    &-column {
+        width: 275px;
+        background-color: #ebecf0;
+        padding: 10px;
+        flex: 0 0 auto;
+        max-height: $column-height;
+        height: fit-content;
+        border-radius: 5px;
+        &:not(:first-child) {
+            margin-left: 10px;
+        }
+        &__header {
+            width: 100%;
+            height: $column-header-height;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #262626;
+        }
+        &__footer {
+            width: 100%;
+            height: $column-header-height;
+        }
+
+        &__list {
+            width: 100%;
+            max-height: calc(#{$column-height} - 2 * #{$column-header-height});
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow-y: auto;
+            &::-webkit-scrollbar {
+                -webkit-appearance: none;
+            }
+            &::-webkit-scrollbar:vertical {
+                width: 11px;
+            }
+            &::-webkit-scrollbar-thumb {
+                // background-color: darken(#ddd, 15);
+                // border-radius: 40px;
+                border-right: 6px solid #ddd;
+            }
+        }
+    }
+}

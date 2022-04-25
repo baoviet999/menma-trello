@@ -1,0 +1,10 @@
+@import "../../_setting.scss";
+
+.trello {
+    &-nav {
+        width: 100%;
+        background-color: #ffafcc;
+        display: flex;
+        align-items: center;
+    }
+}
