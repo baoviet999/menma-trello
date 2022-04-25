@@ -8,9 +8,10 @@
         max-height: $column-height;
         height: fit-content;
         border-radius: 5px;
-        &:not(:first-child) {
-            margin-left: 10px;
-        }
+        // &:not(:first-child) {
+        //     margin-left: 10px;
+        // };
+        margin-left: 10px;
         &__header {
             width: 100%;
             height: $column-header-height;
@@ -46,4 +47,23 @@
             }
         }
     }
+}
+
+.card-ghost {
+    transform: rotateZ(5deg);
+    transition: transform 0.2s ease;
+}
+.card-ghost-drop {
+    transform: rotateZ(0deg);
+    transition: transform 0.2s ease;
+}
+.drop-card-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 5px;
+}
+.column-drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 5px;
 }

@@ -6,10 +6,10 @@ type Props = {
 
 const Card = ({ card }: Props) => {
     return (
-        <li className="trello-column__item">
+        <div className="trello-column__item">
             {card.cover && <img src={card.cover} alt="hinh" />}
             {card.title}
-        </li>
+        </div>
     );
 };
 
