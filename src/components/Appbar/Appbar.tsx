@@ -1,5 +1,5 @@
 import React from "react";
-import './Appbar.scss'
+import "./Appbar.scss";
 type Props = {};
 
 const Appbar = (props: Props) => {
