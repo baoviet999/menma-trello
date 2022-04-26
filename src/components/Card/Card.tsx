@@ -7,7 +7,7 @@ type Props = {
 const Card = ({ card }: Props) => {
     return (
         <div className="trello-column__item">
-            {card.cover && <img src={card.cover} alt="hinh" />}
+            {card.cover && <img src={card.cover} draggable="false" alt="hinh" />}
             {card.title}
         </div>
     );
