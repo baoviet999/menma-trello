@@ -109,6 +109,21 @@ const Board = (props) => {
     //     return () => window.removeEventListener("click", handleToogle);
     // }, []);
 
+    const handleDeleteColumn = (columnId) => {
+        const newColumn = [...columns];
+        const delIndex = newColumn.findIndex((x) => x.id === columnId);
+        newColumn.splice(delIndex, 1);
+        setColumn(newColumn);
+    };
+
+    const handleTitleChange = (columnId, title) => {
+        const newColumn = [...columns];
+        const editTitleColumn = newColumn.find((x) => x.id == columnId);
+        console.log(editTitleColumn);
+        editTitleColumn.title = title;
+        setColumn(newColumn);
+    };
+
     if (isEmpty(board)) return <div style={{ color: "red" }}>Not found</div>;
 
     return (
@@ -118,6 +133,8 @@ const Board = (props) => {
                 onDrop={onColumnDrop}
                 dragHandleSelector=".trello-column__header"
                 getChildPayload={(index) => columns[index]}
+                dragClass="card-ghost"
+                dropClass="card-ghost-drop"
                 dropPlaceholder={{
                     animationDuration: 150,
                     showOnTop: true,
@@ -126,7 +143,13 @@ const Board = (props) => {
             >
                 {columns.map((column, idx) => (
                     <Draggable key={idx}>
-                        <Column column={column} onCardDrop={onCardDrop} onAdd={handleAdd} />
+                        <Column
+                            column={column}
+                            onCardDrop={onCardDrop}
+                            onAdd={handleAdd}
+                            onDel={handleDeleteColumn}
+                            onEditTitle={handleTitleChange}
+                        />
                     </Draggable>
                 ))}
             </Container>
