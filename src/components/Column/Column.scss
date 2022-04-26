@@ -17,10 +17,31 @@
             height: $column-header-height;
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             margin-bottom: 10px;
             font-weight: 600;
             color: #262626;
+            & > h5 {
+                flex: 1;
+            }
+            &--btn {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                & > i {
+                    font-weight: 12px;
+                    color: #fff;
+                    &::after {
+                    }
+                }
+            }
+            &--item {
+                background-color: #ddd;
+                line-height: 20px;
+                padding: 10px 15px !important ;
+            }
         }
         &__footer {
             height: $column-header-height;
@@ -56,6 +77,9 @@
             }
         }
     }
+}
+.dropdown-toggle::after {
+    margin-left: 0 !important;
 }
 
 .card-ghost {
