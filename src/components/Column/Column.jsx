@@ -4,11 +4,11 @@ import { sortOrder } from "utils/sorts";
 import "./Column.scss";
 import { Container, Draggable } from "react-smooth-dnd";
 
-const Column = ({ column }) => {
+const Column = ({ column, onCardDrop, onAdd }) => {
     const { cards } = column;
     const sortCard = sortOrder(cards, column.cardOrder, "id");
-    const onCardDrop = (drag) => {
-        console.log(drag);
+    const handleNewAdd = (id, title) => {
+        onAdd(id, { title });
     };
     return (
         <div className="trello-column">
@@ -16,18 +16,8 @@ const Column = ({ column }) => {
 
             <div className="trello-column__list">
                 <Container
-                    // onDragEnter={() => {
-                    //     console.log("drag enter:", column.id);
-                    // }}
-                    // onDragLeave={() => {
-                    //     console.log("drag leave:", column.id);
-                    // }}
-                    // onDropReady={(p) => console.log("Drop ready: ", p)}
-                    // onDragStart={(e) => console.log("drag started", e)}
-                    // onDragEnd={(e) => console.log("drag end", e)}
-
                     groupName="col"
-                    onDrop={onCardDrop}
+                    onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
                     getChildPayload={(index) => cards[index]}
                     dragClass="card-ghost"
                     dropClass="card-ghost-drop"
@@ -45,7 +35,10 @@ const Column = ({ column }) => {
                     ))}
                 </Container>
             </div>
-            <div className="trello-column__header">Dieu can lam</div>
+            <div className="trello-column__footer" onClick={() => handleNewAdd(column.id, "nguyen bao Viet")}>
+                <i className='fa fa-plus'></i>
+                Add new card
+            </div>
         </div>
     );
 };
