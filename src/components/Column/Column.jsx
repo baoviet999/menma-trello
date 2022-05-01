@@ -9,6 +9,7 @@ import "./Column.scss";
 const Column = ({ column, onCardDrop, onAdd, onDel, onEditTitle }) => {
     const { cards } = column;
     const sortCard = sortOrder(cards, column.cardOrder, "id");
+
     const handleNewAdd = (id, title) => {
         onAdd(id, { title });
     };
@@ -23,7 +24,11 @@ const Column = ({ column, onCardDrop, onAdd, onDel, onEditTitle }) => {
     const handleOpen = () => {
         setOpen(true);
     };
-    const [valueInput, setValueInput] = useState(column.title);
+    const [valueInput, setValueInput] = useState("");
+
+    useEffect(() => {
+        setValueInput(column.title);
+    }, [column.title]);
 
     const [show, setShow] = useState(false);
     const handleConfirm = (payload) => {
@@ -31,12 +36,23 @@ const Column = ({ column, onCardDrop, onAdd, onDel, onEditTitle }) => {
         else {
             console.log(payload);
             onDel(column.id);
+            setShow(false);
         }
     };
     const handleInputBlur = () => {
         onEditTitle(column.id, valueInput);
         setOpen(false);
     };
+
+    const [addCard, setAddCard] = useState(true);
+    const [cardInput, setCardInput] = useState("");
+    const handleAddCard = () => {
+        if (!onAdd) return;
+        onAdd(column.id, cardInput);
+        setAddCard(true);
+        setCardInput("");
+    };
+
     return (
         <div className="trello-column">
             <div className="trello-column__header">
@@ -92,10 +108,21 @@ const Column = ({ column, onCardDrop, onAdd, onDel, onEditTitle }) => {
                     ))}
                 </Container>
             </div>
-            <div className="trello-column__footer" onClick={() => handleNewAdd(column.id, "nguyen bao Viet")}>
-                <i className="fa fa-plus"></i>
-                Add new card
-            </div>
+            {addCard ? (
+                <div className="trello-column__footer" onClick={() => setAddCard(!addCard)}>
+                    <i className="fa fa-plus"></i>
+                    Add new card
+                </div>
+            ) : (
+                <div className="trello-column__addcard">
+                    <div>
+                        <input type="text" value={cardInput} onChange={(e) => setCardInput(e.target.value)} />
+                    </div>
+                    <i className="fa fa-plus" onClick={handleAddCard}></i>
+                    Add new card aaa
+                </div>
+            )}
+
             <ModalComfirm
                 onConfirm={handleConfirm}
                 show={show}

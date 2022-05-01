@@ -21,6 +21,7 @@ const Board = (props) => {
     }, []);
 
     const inputRef = useRef(null);
+
     useEffect(() => {
         if (inputRef && inputRef.current) {
             inputRef.current.focus();
@@ -31,6 +32,7 @@ const Board = (props) => {
     const onColumnDrop = (dropResult) => {
         const newColum = [...columns];
         const drag = dragDrop(newColum, dropResult);
+
         const newBoard = { ...board };
         newBoard.columnOrder = drag.map((x) => x.id);
         newBoard.columns = drag;
@@ -95,20 +97,6 @@ const Board = (props) => {
 
     const addColumn = useRef(null);
 
-    // useEffect(() => {
-    //     const handleToogle = (e) => {
-    //         if (addColumn.current && e.target.contains(addColumn.current)) {
-    //             console.log("first");
-    //             return;
-    //         } else if (!e.target.contains(addColumn.current)) {
-    //             console.log("elsse");
-    //             setOpenInput(false);
-    //         }
-    //     };
-    //     window.addEventListener("click", handleToogle);
-    //     return () => window.removeEventListener("click", handleToogle);
-    // }, []);
-
     const handleDeleteColumn = (columnId) => {
         const newColumn = [...columns];
         const delIndex = newColumn.findIndex((x) => x.id === columnId);
@@ -121,6 +109,20 @@ const Board = (props) => {
         const editTitleColumn = newColumn.find((x) => x.id == columnId);
         console.log(editTitleColumn);
         editTitleColumn.title = title;
+        setColumn(newColumn);
+    };
+
+    const handleAddCard = (id, newCard) => {
+        console.log({ id, newCard });
+        const newColumn = [...columns];
+        const columnNeedUpdate = newColumn.find((x) => x.id === id);
+        columnNeedUpdate.cards.push({
+            id: newCard,
+            title: newCard,
+            boardId: board.id,
+            columnId: columnNeedUpdate.id,
+        });
+        columnNeedUpdate.cardOrder = columnNeedUpdate.cards.map((x) => x.id);
         setColumn(newColumn);
     };
 
@@ -146,7 +148,7 @@ const Board = (props) => {
                         <Column
                             column={column}
                             onCardDrop={onCardDrop}
-                            onAdd={handleAdd}
+                            onAdd={handleAddCard}
                             onDel={handleDeleteColumn}
                             onEditTitle={handleTitleChange}
                         />
