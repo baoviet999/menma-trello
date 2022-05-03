@@ -13,11 +13,14 @@ const Board = (props) => {
     const [columnInput, setColumnInput] = useState("");
 
     useEffect(() => {
-        const responseDb = initData.boards.find((x) => x.id === "board-1");
-        if (responseDb) {
-            setBoard(responseDb);
-            setColumn(responseDb.columns);
-        }
+        fetch("http://localhost:9090/board/626e8d46d87a197654b93fb8")
+            .then((res) => res.json())
+            .then((responseDb) => {
+                console.log(responseDb);
+                setBoard(responseDb.result);
+                setColumn(responseDb.result.columns);
+            })
+            .catch((err) => console.log(err));
     }, []);
 
     const inputRef = useRef(null);
@@ -94,20 +97,6 @@ const Board = (props) => {
     };
 
     const addColumn = useRef(null);
-
-    // useEffect(() => {
-    //     const handleToogle = (e) => {
-    //         if (addColumn.current && e.target.contains(addColumn.current)) {
-    //             console.log("first");
-    //             return;
-    //         } else if (!e.target.contains(addColumn.current)) {
-    //             console.log("elsse");
-    //             setOpenInput(false);
-    //         }
-    //     };
-    //     window.addEventListener("click", handleToogle);
-    //     return () => window.removeEventListener("click", handleToogle);
-    // }, []);
 
     const handleDeleteColumn = (columnId) => {
         const newColumn = [...columns];
